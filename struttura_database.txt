@@ -1,0 +1,113 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 30, 2016 at 04:39 PM
+-- Server version: 5.5.47-0ubuntu0.14.04.1
+-- PHP Version: 5.5.9-1ubuntu4.14
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+
+--
+-- Table structure for table `CGCausale`
+--
+
+CREATE TABLE IF NOT EXISTS `CGCausale` (
+  `Id_CGCausale` int(11) DEFAULT NULL,
+  `Cd_CGCausale` char(3) DEFAULT NULL,
+  `Descrizione` varchar(50) DEFAULT NULL,
+  `DescBreve` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CGConto`
+--
+
+CREATE TABLE IF NOT EXISTS `CGConto` (
+  `Id_CGConto` int(4) DEFAULT NULL,
+  `Cd_CGConto` varchar(12) DEFAULT NULL,
+  `Descrizione` varchar(59) DEFAULT NULL,
+  `Cd_CGMastro2` varchar(12) DEFAULT NULL,
+  `SezioneBilancio` varchar(1) DEFAULT NULL,
+  `TipoConto` int(1) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CGMastro1`
+--
+
+CREATE TABLE IF NOT EXISTS `CGMastro1` (
+  `Id_CGMastro1` int(11) DEFAULT NULL,
+  `Cd_CGMastro1` char(12) NOT NULL,
+  `Descrizione` varchar(60) NOT NULL DEFAULT '<descrizione mancante>',
+  `SezioneBilancio` char(1) NOT NULL DEFAULT 'P',
+  `TipoConto` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CGMastro2`
+--
+
+CREATE TABLE IF NOT EXISTS `CGMastro2` (
+  `Id_CGMastro2` int(11) DEFAULT NULL,
+  `Cd_CGMastro2` char(12) NOT NULL,
+  `Cd_CGMastro1` char(12) NOT NULL,
+  `Descrizione` varchar(60) NOT NULL DEFAULT '<descrizione mancante>',
+  `SezioneBilancio` char(1) NOT NULL DEFAULT 'P',
+  `TipoConto` smallint(6) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CGMovR`
+--
+
+CREATE TABLE IF NOT EXISTS `CGMovR` (
+  `Id_CGMovR` int(11) NOT NULL AUTO_INCREMENT,
+  `Id_CGMovT` int(11) DEFAULT NULL,
+  `DtReg` date NOT NULL,
+  `Cd_CF` char(7) DEFAULT NULL,
+  `TipoRiga` smallint(6) DEFAULT NULL,
+  `Cd_CGConto` char(12) DEFAULT NULL,
+  `DareAvere` char(1) DEFAULT NULL,
+  `ImportoE` decimal(18,2) DEFAULT NULL,
+  PRIMARY KEY (`Id_CGMovR`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=51852 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `CGMovT`
+--
+
+CREATE TABLE IF NOT EXISTS `CGMovT` (
+  `Id_CGMovT` int(11) NOT NULL AUTO_INCREMENT,
+  `NumRif` varchar(15) DEFAULT NULL,
+  `NumProt` varchar(10) DEFAULT NULL,
+  `DtReg` date DEFAULT NULL,
+  `DtRif` date DEFAULT NULL,
+  `Descrizione` varchar(50) DEFAULT NULL,
+  `Cd_CGCausale` char(3) DEFAULT NULL,
+  `ImportoE` decimal(18,2) NOT NULL,
+  `TotDareE` decimal(18,2) NOT NULL,
+  `TotAvereE` decimal(18,2) NOT NULL,
+  `PartNum` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`Id_CGMovT`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14524 ;
